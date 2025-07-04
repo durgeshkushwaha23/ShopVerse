@@ -6,7 +6,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { IoEye } from "react-icons/io5";
 import { useState } from 'react';
 import { useContext } from 'react';
-import { authDataContext } from '../context/authContext';
+import { authDataContext } from '../context/AuthContext';
 import axios from 'axios'
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/Firebase';
@@ -29,7 +29,7 @@ function Registration() {
         setLoading(true)
         e.preventDefault()
         try {
-         const result = await axios.post(serverUrl + '/api/auth/registration',{
+         const result = await axios.post(serverUrl + '/api/auth/register',{
             name,email,password
          },{withCredentials:true})
             getCurrentUser()

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react'
 import Logo from "../assets/logo.png"
 import { useNavigate } from 'react-router-dom'
@@ -6,12 +7,13 @@ import { IoEyeOutline } from "react-icons/io5";
 import { IoEye } from "react-icons/io5";
 import { useState } from 'react';
 import { useContext } from 'react';
-import { authDataContext } from '../context/authContext';
-import axios from 'axios';
+import { authDataContext } from '../context/AuthContext';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/Firebase';
 import { userDataContext } from '../context/UserContext';
 import Loading from '../component/Loading';
+import { toast } from 'react-toastify';
+
 
 function Login() {
     let [show,setShow] = useState(false)
@@ -30,17 +32,19 @@ function Login() {
             let result = await axios.post(serverUrl + '/api/auth/login',{
                 email,password
             },{withCredentials:true})
+            toast.success("User Login Successful")
+
             console.log(result.data)
             setLoading(false)
             getCurrentUser()
             navigate("/")
-            toast.success("User Login Successful")
             
         } catch (error) {
             console.log(error)
-            toast.error("User Login Failed")
+            toast.error("invalid credentials")
         }
     }
+    
      const googlelogin = async () => {
             try {
                 const response = await signInWithPopup(auth , provider)
@@ -58,6 +62,7 @@ function Login() {
             }
             
         }
+
   return (
     <div className='w-[100vw] h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] text-[white] flex flex-col items-center justify-start'>
     <div className='w-[100%] h-[80px] flex items-center justify-start px-[30px] gap-[10px] cursor-pointer' onClick={()=>navigate("/")}>

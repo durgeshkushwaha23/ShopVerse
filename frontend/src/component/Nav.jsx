@@ -5,12 +5,12 @@ import { FaCircleUser } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { userDataContext } from '../context/UserContext';
 import { IoSearchCircleSharp } from "react-icons/io5";
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import { IoMdHome } from "react-icons/io";
 import { HiOutlineCollection } from "react-icons/hi";
 import { MdContacts } from "react-icons/md";
 import axios from 'axios';
-import { authDataContext } from '../context/authContext';
+import { authDataContext } from '../context/AuthContext';
 import { shopDataContext } from '../context/ShopContext';
 function Nav() {
     let {getCurrentUser , userData} = useContext(userDataContext)
@@ -19,18 +19,18 @@ function Nav() {
     let [showProfile,setShowProfile] = useState(false)
     let navigate = useNavigate()
 
-
-    const handleLogout = async () => {
-        try {
-            const result = await axios.get(serverUrl + "/api/auth/logout" , {withCredentials:true})
-            console.log(result.data)
-            getCurrentUser()
-            navigate("/login")
-        } catch (error) {
-            console.log(error)
-        }
-        
+const handleLogout = async () => {
+    try {
+        const result = await axios.get(serverUrl + "/api/auth/logout", { withCredentials: true });
+        console.log(result.data);
+        await getCurrentUser(); // make sure context updates
+        setShowProfile(false); // hide profile dropdown
+        navigate("/login");    // redirect
+    } catch (error) {
+        console.log(error);
     }
+};
+
   return (
     <div className='w-[100vw] h-[70px] bg-[#ecfafaec] z-10 fixed top-0 flex  items-center justify-between px-[30px] shadow-md shadow-black '>
 

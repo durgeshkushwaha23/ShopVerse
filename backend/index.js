@@ -18,7 +18,7 @@ let app = express()
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
- origin:["https://shopverse-frontend-hps9.onrender.com" , "https://shopverse-frontend-hps9.onrender.com"],
+ origin:["https://shopverse-frontend-hps9.onrender.com" , "https://shopverse-admin.onrender.com"],
  credentials:true
 }))
 

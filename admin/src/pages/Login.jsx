@@ -15,7 +15,7 @@ function Login() {
           let {serverUrl} = useContext(authDataContext)
           let {adminData , getAdmin} = useContext(adminDataContext)
           let navigate = useNavigate()
-          const [loading,setLoading] = useState(false)
+          const [loading,setLoading] = useState(false) 
 
           const AdminLogin = async (e) => {
             setLoading(true)

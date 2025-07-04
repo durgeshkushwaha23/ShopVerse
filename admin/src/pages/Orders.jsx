@@ -14,7 +14,7 @@ function Orders() {
   let {serverUrl} = useContext(authDataContext)
 
     const fetchAllOrders =async () => {
-    try {
+    try { 
       const result = await axios.post(serverUrl + '/api/order/list' , {} ,{withCredentials:true})
       setOrders(result.data.reverse())
       
